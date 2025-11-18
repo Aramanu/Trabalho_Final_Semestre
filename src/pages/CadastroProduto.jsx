@@ -1,10 +1,12 @@
 import Cabecalho from "../components/Cabecalho";
 
 export default function CadastroProduto() {
-    return (
-        <>
-            <Cabecalho />
-            <h1>Cadastro de Produto</h1>
-        </>
-    )
+  return (
+    <>
+      <Cabecalho />
+      <div className="pt-20">
+        <h1>Cadastro de Produto</h1>
+      </div>
+    </>
+  );
 }

@@ -1,10 +1,12 @@
 import Cabecalho from "../components/Cabecalho";
 
 export default function Login() {
-    return (
-        <>
-            <Cabecalho />
-            <h1>Login</h1>
-        </>
-    )
+  return (
+    <>
+      <Cabecalho />
+      <div className="pt-20">
+        <h1>Login AAA</h1>
+      </div>
+    </>
+  );
 }

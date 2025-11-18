@@ -4,5 +4,45 @@
 
 @theme {
     --font-Montserrat: 'Montserrat', sans-serif;
+    --azul: #0077B6;
+    --laranja: #FF5912;
+    --verde: #00FF90;
+    --cinza: #24292D;
+    --preto_azulado: #0E1418;
+    --branco: #FFFFFF;
+    --preto: #000000;
   }  
-  
+
+.h1, .h2, .h3, .h4, .h5, .legibilidade .detalhes{
+    font-family: var(--font-Montserrat);
+}
+
+.h1 {
+    font-size: 50pt;
+    font-weight: 600;
+}
+
+.h2 {
+    font-size: 45pt;
+    font-weight: 500;
+}
+.h3 {
+    font-size: 40pt;
+    font-weight: bold;
+}
+.h4 {
+    font-size: 35pt;
+    font-weight: 500;
+}
+.h5{
+    font-size: 30pt;
+    font-weight: 500;
+}
+.legibilidade{
+    font-size: 30pt;
+    font-weight: 500;
+}
+.detalhes{
+    font-size: 18pt;
+    font-weight: 500;
+}

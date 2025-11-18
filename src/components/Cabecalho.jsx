@@ -22,9 +22,9 @@ export default function Cabecalho() {
   return (
     <nav
       ref={menuRef}
-      className="bg-[#0E1418] border-gray-200 fixed top-0 left-0 w-full z-50 font-Montserrat"
+      className="bg-[#0E1418] border-gray-200 fixed top-0 left-0 w-full z-50"
     >
-      <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+      <div className="max-w-7xl flex flex-wrap items-center justify-between mx-auto p-4">
         {/* LOGO */}
         <a href="#" className="flex items-center space-x-3">
           <img src="/logo.svg" className="h-8" alt="Logo" />
