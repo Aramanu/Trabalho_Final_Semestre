@@ -53,13 +53,20 @@ export default function Home() {
         </div>
       </section>
 
-
       <section className="mt-2 mx-2 gap-12 flex flex-col md:flex-row md:justify-center">
-        <CardHome imagem="pogba.jpg" titulo="Artigos de Futebol" descricao="Conheça nosso catálogo de artigos de futebol"/>
-        <CardHome imagem="public/corredora.png" titulo="Itens para corrida" descricao="Comece a correr com o que nós temos a oferecer de melhor."/>
+        <CardHome
+          imagem="pogba.jpg"
+          titulo="Artigos de Futebol"
+          descricao="Conheça nosso catálogo de artigos de futebol"
+        />
+        <CardHome
+          imagem="public/corredora.png"
+          titulo="Itens para corrida"
+          descricao="Comece a correr com o que nós temos a oferecer de melhor."
+        />
       </section>
 
-      <SequenciaDeCardsCatalogo/>
+      <SequenciaDeCardsCatalogo />
 
       <RodaPe />
     </>

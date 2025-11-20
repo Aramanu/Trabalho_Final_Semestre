@@ -11,6 +11,7 @@ import Login from "./pages/Login.jsx";
 import Pesquisa from "./pages/Pesquisa.jsx";
 import Produtos from "./pages/Produtos.jsx";
 import Catalogo from "./pages/Catalogo.jsx";
+import Artigo from "./pages/Artigo.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -21,6 +22,7 @@ createRoot(document.getElementById("root")).render(
         <Route path="/pesquisa" element={<Pesquisa />} />
         <Route path="/produtos" element={<Produtos />} />
         <Route path="/catalogo" element={<Catalogo />} />
+        <Route path="/artigo/:artigoId" element={<Artigo />} />
         <Route path="/cadastro-produto" element={<CadastroProduto />} />
         <Route path="/cadastro-usuario" element={<CadastroUsuario />} />
       </Routes>

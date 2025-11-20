@@ -1,34 +1,83 @@
 {
-  "produtos": [
+  "artigos": [
     {
       "id": "1",
-      "produto": "Camiseta",
-      "tamanho": "M",
-      "descricao": "Camiseta de algodão",
-      "valor": 49.99,
-      "categoria": "Roupas",
-      "imagem": "https://example.com/camiseta.jpg",
-      "avaliacao": []
+      "nome": "Camisa de Futebol Profissional",
+      "valor": 249.9,
+      "imagem": "https://images.unsplash.com/photo-1551107696-a4b0c5a0d9a2?w=500",
+      "material": "Poliéster Dry-Fit",
+      "tamanho": "M, G, GG",
+      "cor": "Azul",
+      "nomes": ["Carlos Silva", "Ana Santos"],
+      "comentarios": [
+        "Excelente qualidade, muito confortável!",
+        "Ótima camisa, recomendo!"
+      ],
+      "notas": [5, 4.5]
     },
     {
-      "id": "7206",
-      "produto": "teste",
-      "tamanho": "p",
-      "descricao": "velho",
-      "valor": "45.00",
-      "categoria": "camiseta",
-      "imagem": "https://acdn-us.mitiendanube.com/stores/004/285/036/products/camisa-internacional-i-2025-adidas-vermelha-50-anos-campeonato-brasileiro-1975-comprar-1-a1b37cd3b3afadf93217370816297940-1024-1024.jpg",
-      "avaliacao": []
+      "id": "2",
+      "nome": "Tênis de Corrida Performance",
+      "valor": 399,
+      "imagem": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500",
+      "material": "Mesh respirável",
+      "tamanho": "38, 40, 42, 44",
+      "cor": "Preto",
+      "nomes": ["João Pedro"],
+      "comentarios": ["Muito bom para treinos longos"],
+      "notas": [5]
     },
     {
-      "id": "fea9",
-      "produto": "teste2",
-      "tamanho": "g",
-      "descricao": "simulado",
-      "valor": "35.00",
-      "categoria": "short",
-      "imagem": "          imagem: imagem,",
-      "avaliacao": []
+      "id": "3",
+      "nome": "Bola de Basquete Oficial",
+      "valor": 189.9,
+      "imagem": "https://images.unsplash.com/photo-1546519638-68e109498ffc?w=500",
+      "material": "Borracha sintética",
+      "tamanho": "Tamanho 7",
+      "cor": "Laranja",
+      "nomes": [],
+      "comentarios": [],
+      "notas": []
+    },
+    {
+      "id": "4",
+      "nome": "Raquete de Tênis Wilson Pro",
+      "valor": 599,
+      "imagem": "https://images.unsplash.com/photo-1617083278968-3f1e0c44e9c0?w=500",
+      "material": "Grafite e Carbono",
+      "tamanho": "Adulto",
+      "cor": "Vermelho e Preto",
+      "nomes": ["Maria Oliveira", "Pedro Costa", "Fernanda Lima"],
+      "comentarios": [
+        "Excelente para jogadores intermediários",
+        "Muito leve e precisa",
+        "Vale cada centavo!"
+      ],
+      "notas": [4.5, 5, 4]
+    },
+    {
+      "id": "5",
+      "nome": "Luvas de Goleiro Profissional",
+      "valor": 159.9,
+      "imagem": "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=500",
+      "material": "Látex profissional",
+      "tamanho": "8, 9, 10",
+      "cor": "Verde e Amarelo",
+      "nomes": ["Ricardo Gomes"],
+      "comentarios": ["Aderência perfeita!"],
+      "notas": [5]
+    },
+    {
+      "id": "6",
+      "nome": "Bicicleta Mountain Bike",
+      "valor": 1899,
+      "imagem": "https://images.unsplash.com/photo-1576435728678-68d0fbf94e91?w=500",
+      "material": "Alumínio",
+      "tamanho": "Aro 29",
+      "cor": "Cinza",
+      "nomes": ["Erick"],
+      "comentarios": ["Bom"],
+      "notas": [4]
     }
   ]
 }
