@@ -1,8 +1,9 @@
 import Cabecalho from "../components/Cabecalho";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import RodaPe from "../components/RodaPe";
 import Swal from "sweetalert2";
+
 
 export default function Login() {
   const { register, handleSubmit, watch, setFocus, reset } = useForm();
@@ -71,8 +72,8 @@ export default function Login() {
     <>
       <Cabecalho />
 
-      <section className="mt-40 flex flex-col items-center gap-8">
-        <h1 className="uppercase text-black font-bold hidden md:block">
+      <section className="mt-25 flex flex-col items-center gap-8">
+        <h1 className="uppercase text-black hidden md:block h4 font-bold">
           entrar com email e senha
         </h1>
         <h1 className="uppercase text-black font-bold md:hidden">
@@ -86,7 +87,9 @@ export default function Login() {
           <p>
             <input
               type="email"
-              className="placeholder-gray-400 w-full"
+              name=""
+              id=""
+              className="placeholder-azul_aux w-full detalhes"
               placeholder="exemplo@email.com"
               {...register("login", { required: true })}
             />
@@ -95,36 +98,37 @@ export default function Login() {
           <p>
             <input
               type="password"
-              className="placeholder-gray-400 w-full"
+              name=""
+              id=""
+              className="placeholder-azul_aux w-full detalhes"
               placeholder="adicione sua senha"
               {...register("senha", { required: true })}
             />
           </p>
 
           <div className="flex flex-col justify-end">
-            <h5 className="uppercase text-[0.6rem] text-end">
+            <h5 className="uppercase detalhes text-end hover:text-azul">
               esqueci minha senha
             </h5>
-            <hr className="w-full border-black" />
+            <hr className="w-full border-preto" />
           </div>
 
           <button
             type="submit"
-            className="bg-[#0E1418] text-white px-4 py-2 rounded mt-4 hover:bg-preto_azulado"
+            className="bg-preto text-white px-4 py-2 rounded mt-4 hover:bg-azul detalhes"
           >
             Entrar
           </button>
         </form>
-
-        <Link to="/cadastro-usuario">
-          <h5 className="uppercase text-[0.6rem] text-center hidden md:block hover:cursor-pointer">
-            não tem uma conta? cadastre-se
-          </h5>
-          <h5 className="uppercase text-[0.6rem] text-center md:hidden hover:cursor-pointer">
-            cadastre-se
-          </h5>
+        <Link to="/cadastro-usuario"> 
+        <h5 className="uppercase detalhes text-center hidden md:block hover:cursor-pointer hover:text-azul">
+          não tem uma conta? cadastre-se
+        </h5>
+        <h5 className="uppercase detalhes text-center hover:cursor-pointer md:hidden hover:text-azul">cadastre-se
+        </h5>
         </Link>
       </section>
+      <RodaPe />
     </>
   );
 }

@@ -1,6 +1,7 @@
 import Cabecalho from "../components/Cabecalho";
 import { useForm } from "react-hook-form";
 import { useState, useEffect } from "react";
+import RodaPe from "../components/RodaPe";
 import Swal from "sweetalert2";
 
 export default function CadastroUsuario() {
@@ -51,7 +52,7 @@ export default function CadastroUsuario() {
     <>
       <Cabecalho />
        <section className="mt-30 md:mt-35 flex flex-col items-center gap-8  ">
-              <h1 className="uppercase text-black font-bold ">
+              <h1 className="uppercase text-black font-bold">
                 cadastro
               </h1>
               <form action="" onSubmit={handleSubmit(cadastrarUsuario)} className="flex flex-col w-200 gap-8 items-center">
@@ -134,12 +135,12 @@ export default function CadastroUsuario() {
                 </p>
                 <button
                   type="submit"
-                  className="bg-[#0E1418] text-white px-4 py-2 rounded mt-4 hover:bg-preto_azulado w-60"
+                  className="bg-preto text-white px-4 py-2 rounded mt-4 hover:bg-preto_azulado w-60"
                 >
                   CRIAR CADASTRO
                 </button>
               </form>
-              
+              <RodaPe />
             </section>
     </>
   );

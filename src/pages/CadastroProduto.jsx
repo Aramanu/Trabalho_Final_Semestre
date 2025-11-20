@@ -1,167 +1,132 @@
+import { useState } from "react";
 import Cabecalho from "../components/Cabecalho";
 import { useForm } from "react-hook-form";
-import { useState, useEffect } from "react";
+import RodaPe from "../components/RodaPe";
+import Swal from "sweetalert2";
 
 export default function CadastroProduto() {
-  const { register, handleSubmit, setFocus, reset } = useForm();
+  const [nome, setNome] = useState("");
+  const [valor, setValor] = useState("");
+  const [imagem, setImagem] = useState("");
+  const [material, setMaterial] = useState("");
+  const [tamanho, setTamanho] = useState("");
+  const [cor, setCor] = useState("");
 
-  async function cadastroProduto(data){
-   
-      const produto = data.produto;
-      const tamanho = data.tamanho;
-      const descricao = data.descricao;
-      const valor = data.valor;
-      const categoria = data.categoria;
-      const imagem = data.imagem
-   
+  async function cadastrarProduto(e) {
+    e.preventDefault();
+
+    const novoArtigo = {
+      nome,
+      valor: Number(valor),
+      imagem,
+      material,
+      tamanho,
+      cor,
+      nomes: [],
+      comentarios: [],
+      notas: [],
+    };
+
     try {
-      const resposta = await fetch("http://localhost:3000/produtos", {
+      const resposta = await fetch("http://localhost:3000/artigos", {
         method: "POST",
-        headers: {"Content-Type": "application/json" },
-        body: JSON.stringify({
-          produto: produto,
-          tamanho: tamanho,
-          descricao: descricao,
-          valor: valor,
-          categoria: categoria,
-          imagem: imagem,
-          avaliacao: []
-        })
-      })
-      if (!resposta.ok) throw new Error("Erro ao incluir o produto")
-      const novoProduto = await resposta.json()
-      alert(`Ok! Produto cadastrado com o código: ${novoProduto.id}`)
-    } catch (erro) {
-      console.log(`Erro: ${erro.message}`)
-    }
-    reset()
-  }
-  useEffect(() => {
-    setFocus("produto");
-  }, []);
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(novoArtigo),
+      });
 
+      if (!resposta.ok) throw new Error("Erro ao cadastrar produto");
+
+      Swal.fire({
+        icon: "success",
+        title: "Produto cadastrado com sucesso!",
+        showConfirmButton: false,
+        timer: 2000,
+      });
+
+      // Limpar formulário
+      setNome("");
+      setValor("");
+      setImagem("");
+      setMaterial("");
+      setTamanho("");
+      setCor("");
+    } catch (erro) {
+      Swal.fire({
+        icon: "error",
+        title: "Erro ao cadastrar produto",
+        text: erro.message,
+      });
+    }
+  }
 
   return (
     <>
       <Cabecalho />
-      <section className="mt-30 md:mt-35 flex flex-col items-center gap-8  ">
-        <h1 className="uppercase text-black font-bold ">cadastro de produto</h1>
-        <form
-          action=""
-          onSubmit={handleSubmit(cadastroProduto)}
-          className="flex flex-col w-200 gap-8 items-center"
-        >
-          <p className="flex  flex-row items-end gap-2 md:w-115 justify-end  ">
-            <label
-              htmlFor="produto"
-              className="font-semibold items-center justify-center hidden md:block"
-            >
-              Produto :{" "}
-            </label>
+      <div className="pt-20 min-h-screen flex justify-center items-center">
+        <div className="w-full max-w-md bg-cinza p-8 rounded-lg">
+          <h1 className="text-3xl font-bold text-center mb-6">
+            Cadastro de Produto
+          </h1>
+          <form onSubmit={cadastrarProduto} className="flex flex-col gap-4">
             <input
               type="text"
-              name="produto"
-              id="produto"
-              className="placeholder-gray-400 w-80 h-7 md:placeholder-transparent md:w-100"
-              placeholder="Produto"
+              placeholder="Nome do Produto"
+              value={nome}
+              onChange={(e) => setNome(e.target.value)}
+              className="p-3 rounded bg-preto_azulado border-2 border-azul focus:outline-none focus:border-verde"
               required
-              {...register("produto")}
             />
-          </p>
-          <p className="flex flex-row items-end gap-2 md:w-115 justify-end ">
-            <label
-              htmlFor="tamanho"
-              className="font-semibold items-center justify-center hidden md:block"
-            >
-              Tamanho :{" "}
-            </label>
-            <input
-              type="text"
-              name="tamanho"
-              id="tamanho"
-              className="placeholder-gray-400 w-80 h-7 md:placeholder-transparent md:w-100"
-              placeholder="Tamanho"
-              required
-              {...register("tamanho")}
-            />
-          </p>
-          <p className="flex flex-row items-end gap-2 md:w-115 justify-end ">
-            <label
-              htmlFor="descricao"
-              className="font-semibold items-center justify-center hidden md:block"
-            >
-              Descrição :{" "}
-            </label>
-            <input
-              type="text"
-              name="descricao"
-              id="descricao"
-              className="placeholder-gray-400 w-80 h-7 md:placeholder-transparent md:w-100"
-              placeholder="Descrição"
-              required
-              {...register("descricao")}
-            />
-          </p>
-          <p className="flex flex-row items-end gap-2 md:w-115 justify-end ">
-            <label
-              htmlFor="valor"
-              className="font-semibold items-center justify-center hidden md:block"
-            >
-              Valor :{" "}
-            </label>
             <input
               type="number"
-              name="valor"
-              id="valor"
-              className="placeholder-gray-400 w-80 h-7 md:placeholder-transparent md:w-100"
-              placeholder="Valor"
+              placeholder="Valor (R$)"
+              value={valor}
+              onChange={(e) => setValor(e.target.value)}
+              step="0.01"
+              className="p-3 rounded bg-preto_azulado border-2 border-azul focus:outline-none focus:border-verde"
               required
-              {...register("valor")}
             />
-          </p>
-          <p className="flex flex-row items-end gap-2 md:w-115 justify-end ">
-            <label
-              htmlFor="categoria"
-              className="font-semibold items-center justify-center hidden md:block"
-            >
-              Categoria :{" "}
-            </label>
             <input
               type="text"
-              name="categoria"
-              id="categoria"
-              className="placeholder-gray-400 w-80 h-7 md:placeholder-transparent md:w-100"
-              placeholder="Categoria"
+              placeholder="URL da Imagem"
+              value={imagem}
+              onChange={(e) => setImagem(e.target.value)}
+              className="p-3 rounded bg-preto_azulado border-2 border-azul focus:outline-none focus:border-verde"
               required
-              {...register("categoria")}
             />
-          </p>
-          <p className="flex flex-row items-end gap-2 md:w-115 justify-end ">
-            <label
-              htmlFor="imagem"
-              className="font-semibold items-center justify-center hidden md:block"
-            >
-              Imagem :{" "}
-            </label>
             <input
               type="text"
-              name="imagem"
-              id="imagem"
-              className="placeholder-gray-400 w-80 h-7 md:placeholder-transparent md:w-100"
-              placeholder="Imagem"
+              placeholder="Material"
+              value={material}
+              onChange={(e) => setMaterial(e.target.value)}
+              className="p-3 rounded bg-preto_azulado border-2 border-azul focus:outline-none focus:border-verde"
               required
-              {...register("imagem")}
             />
-          </p>
-          
-          <button
-            type="submit"
-            className="bg-[#0E1418] text-white px-4 py-2 rounded mt-4 hover:bg-preto_azulado w-60"
-          >
-            CADASTRAR PRODUTO
-          </button>
-        </form>
-      </section>
+            <input
+              type="text"
+              placeholder="Tamanho"
+              value={tamanho}
+              onChange={(e) => setTamanho(e.target.value)}
+              className="p-3 rounded bg-preto_azulado border-2 border-azul focus:outline-none focus:border-verde"
+              required
+            />
+            <input
+              type="text"
+              placeholder="Cor"
+              value={cor}
+              onChange={(e) => setCor(e.target.value)}
+              className="p-3 rounded bg-preto_azulado border-2 border-azul focus:outline-none focus:border-verde"
+              required
+            />
+            <button
+              type="submit"
+              className="bg-verde hover:bg-laranja text-preto_azulado font-bold py-3 rounded duration-200 mt-2"
+            >
+              Cadastrar Produto
+            </button>
+          </form>
+        </div>
+      </div>
+      <RodaPe />
     </>
   );
 }
