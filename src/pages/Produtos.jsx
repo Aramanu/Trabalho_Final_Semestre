@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Cabecalho from "../components/Cabecalho";
 import RodaPe from "../components/RodaPe";
 import CardCatalogo from "../components/cards/CardCatalogo";
+import { Link } from "react-router-dom";
 
 function Produtos() {
   const [artigos, setArtigos] = useState([]);
@@ -30,7 +31,14 @@ function Produtos() {
         <div className="flex flex-wrap gap-8 justify-center mb-30 px-4">
           {listaArtigos}
         </div>
+
+        <div className="flex justify-center my-10">
+          <Link to="/cadastro-produto" className="bg-verde hover:bg-laranja text-preto_azulado font-bold py-3 px-6 rounded duration-200">
+            Cadastrar Produto
+          </Link>
+        </div>
       </div>
+
       <RodaPe />
     </>
   );
