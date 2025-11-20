@@ -2,6 +2,7 @@ import Cabecalho from "../components/Cabecalho";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
+import Swal from "sweetalert2";
 
 export default function Login() {
   const { register, handleSubmit, watch, setFocus, reset } = useForm();
@@ -44,9 +45,21 @@ export default function Login() {
     const senhaSalva = usuarioSalvo.senha.trim();
 
     if (emailSalvo === loginDigitado && senhaSalva === senhaDigitada) {
-      alert("Login realizado com sucesso!");
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: `<span style="font-family: 'Arial'">Login Realizado com Sucesso!!!</span>`,
+        showConfirmButton: false,
+        timer: 2000,
+      });
     } else {
-      alert("Email ou senha incorretos.");
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: `<span style="font-family: 'Arial'">Email ou Senha Incorretos!!</span>`,
+        showConfirmButton: false,
+        timer: 2000,
+      })
     }
 
     reset();

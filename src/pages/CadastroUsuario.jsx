@@ -1,6 +1,7 @@
 import Cabecalho from "../components/Cabecalho";
 import { useForm } from "react-hook-form";
 import { useState, useEffect } from "react";
+import Swal from "sweetalert2";
 
 export default function CadastroUsuario() {
     const {register, handleSubmit, setFocus, reset} = useForm();
@@ -18,6 +19,13 @@ export default function CadastroUsuario() {
       };
       setUsuario(novoUsuario);
       localStorage.setItem("usuario", JSON.stringify(novoUsuario));
+      Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: `<span style="font-family: 'Arial'">Cadastro Realizado com Sucesso!!</span>`,
+              showConfirmButton: false,
+              timer: 2000,
+            })
       limparFormulario()
     }
     useEffect(() => {
