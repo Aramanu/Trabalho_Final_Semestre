@@ -1,0 +1,34 @@
+{
+  "produtos": [
+    {
+      "id": "1",
+      "produto": "Camiseta",
+      "tamanho": "M",
+      "descricao": "Camiseta de algodão",
+      "valor": 49.99,
+      "categoria": "Roupas",
+      "imagem": "https://example.com/camiseta.jpg",
+      "avaliacao": []
+    },
+    {
+      "id": "7206",
+      "produto": "teste",
+      "tamanho": "p",
+      "descricao": "velho",
+      "valor": "45.00",
+      "categoria": "camiseta",
+      "imagem": "https://acdn-us.mitiendanube.com/stores/004/285/036/products/camisa-internacional-i-2025-adidas-vermelha-50-anos-campeonato-brasileiro-1975-comprar-1-a1b37cd3b3afadf93217370816297940-1024-1024.jpg",
+      "avaliacao": []
+    },
+    {
+      "id": "fea9",
+      "produto": "teste2",
+      "tamanho": "g",
+      "descricao": "simulado",
+      "valor": "35.00",
+      "categoria": "short",
+      "imagem": "          imagem: imagem,",
+      "avaliacao": []
+    }
+  ]
+}

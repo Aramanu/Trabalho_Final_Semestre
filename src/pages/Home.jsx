@@ -5,20 +5,62 @@ import { FaTruckPickup } from "react-icons/fa";
 import { FaRegCreditCard } from "react-icons/fa";
 import { TfiReload } from "react-icons/tfi";
 import { FaWhatsapp } from "react-icons/fa";
+import CardHome from "../components/cards/CardHome";
+import SequenciaDeCardsCatalogo from "../components/cards/SequenciaDeCardsCatalogo";
 
 export default function Home() {
   return (
     <>
       <Cabecalho />
-        <img src="fundo1.png" alt="" className="w-full"/>
-        <div className="bg-cinza flex h-40 justify-around items-center">
-          <ul className="grid md:grid-cols-4 grid-cols-2">
-            <li><Listagem className="flex-col legibilidade w-[130px]" icon={<FaTruckPickup />} texto="Frete Grátis acima de R$399" iconClassName="text-"/></li>
-            <li><Listagem className="flex-col legibilidade w-[184px]" icon={<FaRegCreditCard />} texto="Parcelamento em até 10x sem juros" /></li>
-            <li><Listagem className="flex-col legibilidade w-[212px]" icon={<TfiReload />} texto="até 2 trocas grátis. VER POLÍTICA DE TROCAS" /></li>
-            <li><Listagem className="flex-col legibilidade w-[200px]" icon={<FaWhatsapp />} texto="DÚVIDAS NA COMPRA? (48) 98852.9200" /></li>
+
+      <section>
+        <img src="fundo1.png" alt="" className="w-full h-96 object-cover" />
+        <div className="bg-cinza flex md:p-6 py-6 items-center justify-center">
+          <ul className="md:flex grid grid-cols-2 place-items-center gap-16">
+            <li>
+              <Listagem
+                className="flex-col md:legibilidade w-[130px] text-center detalhes"
+                icon={<FaTruckPickup />}
+                texto="Frete Grátis acima de R$399"
+                iconClassName="text-2xl"
+              />
+            </li>
+            <li>
+              <Listagem
+                className="flex-col md:legibilidade w-[184px] text-center detalhes"
+                icon={<FaRegCreditCard />}
+                texto="Parcelamento em até 10x sem juros"
+                iconClassName="text-2xl"
+              />
+            </li>
+            <li>
+              <Listagem
+                className="flex-col md:legibilidade w-[212px] text-center detalhes"
+                icon={<TfiReload />}
+                texto="até 2 trocas grátis. VER POLÍTICA DE TROCAS"
+                iconClassName="text-2xl"
+              />
+            </li>
+            <li>
+              <Listagem
+                className="flex-col md:legibilidade w-[200px] text-center detalhes"
+                icon={<FaWhatsapp />}
+                texto="DÚVIDAS NA COMPRA? (99) 99999-9999"
+                iconClassName="text-2xl"
+              />
+            </li>
           </ul>
         </div>
+      </section>
+
+
+      <section className="mt-2 mx-2 gap-12 flex flex-col md:flex-row md:justify-center">
+        <CardHome imagem="pogba.jpg" titulo="Artigos de Futebol" descricao="Conheça nosso catálogo de artigos de futebol"/>
+        <CardHome imagem="public/corredora.png" titulo="Itens para corrida" descricao="Comece a correr com o que nós temos a oferecer de melhor."/>
+      </section>
+
+      <SequenciaDeCardsCatalogo/>
+
       <RodaPe />
     </>
   );

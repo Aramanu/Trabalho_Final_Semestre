@@ -1,0 +1,29 @@
+Centro Universitário UniSenac – Campus Pelotas
+Curso Superior de Tecnologia em Análise e Desenvolvimento de Sistemas
+Programação Web – Prof. Edécio Fernando Iepsen
+
+
+Trabalho #3 – Projeto Integrado das UCs:
+ - Programação Web
+ - Engenharia de Software I
+ - Desenvolvimento Web para Dispositivos Móveis
+Desenvolver um App utilizando o framework React JS contendo os requisitos indicados no
+Projeto em desenvolvimento para a disciplina de Engenharia de Software. O App deve:
+a) Manipular os dados relacionados ao projeto, a partir do Json Server, para simular uma
+API em sua máquina.
+b) Exibir a lista dos dados retornadas pela API. A aplicação deve também conter um
+formulário para a inclusão de novos itens.
+c) Deve ser possível interagir sobre a lista de dados, a partir do clique em um botão
+associado a cada item e preencher com algum comentário / avaliação / indicação de
+interesse, .... Os dados desta interação devem ser salvos na API (como itens em um vetor,
+ou outra "tabela" do json)
+d) Ao clicar sobre o item (botão associado a cada item) deve ser possível visualizar as
+interações realizadas pelos usuários do sistema.
+e) Salvar alguns dados de identificação ou de seleção de itens do cliente / usuário em
+LocalStorage para posterior recuperação. O App deve permitir também,
+remover/manipular estes dados.
+Apresentação do trabalho: Dia 25/11/2025
+Conceitos:
+Recursos a, b, c, d e e funcionando: Conceito A
+Recursos a, b, c e d funcionando: Conceito B
+Somente o recurso a, b e c funcionando: Conceito C
