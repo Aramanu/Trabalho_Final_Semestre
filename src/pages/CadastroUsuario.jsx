@@ -140,8 +140,8 @@ export default function CadastroUsuario() {
                   CRIAR CADASTRO
                 </button>
               </form>
-              <RodaPe />
             </section>
+          <RodaPe />
     </>
   );
 }

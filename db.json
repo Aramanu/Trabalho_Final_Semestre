@@ -8,12 +8,18 @@
       "material": "Poliéster Dry-Fit",
       "tamanho": "M, G, GG",
       "cor": "Azul",
-      "nomes": ["Carlos Silva", "Ana Santos"],
+      "nomes": [
+        "Carlos Silva",
+        "Ana Santos"
+      ],
       "comentarios": [
         "Excelente qualidade, muito confortável!",
         "Ótima camisa, recomendo!"
       ],
-      "notas": [5, 4.5]
+      "notas": [
+        5,
+        4.5
+      ]
     },
     {
       "id": "2",
@@ -23,9 +29,15 @@
       "material": "Mesh respirável",
       "tamanho": "38, 40, 42, 44",
       "cor": "Preto",
-      "nomes": ["João Pedro"],
-      "comentarios": ["Muito bom para treinos longos"],
-      "notas": [5]
+      "nomes": [
+        "João Pedro"
+      ],
+      "comentarios": [
+        "Muito bom para treinos longos"
+      ],
+      "notas": [
+        5
+      ]
     },
     {
       "id": "3",
@@ -47,13 +59,21 @@
       "material": "Grafite e Carbono",
       "tamanho": "Adulto",
       "cor": "Vermelho e Preto",
-      "nomes": ["Maria Oliveira", "Pedro Costa", "Fernanda Lima"],
+      "nomes": [
+        "Maria Oliveira",
+        "Pedro Costa",
+        "Fernanda Lima"
+      ],
       "comentarios": [
         "Excelente para jogadores intermediários",
         "Muito leve e precisa",
         "Vale cada centavo!"
       ],
-      "notas": [4.5, 5, 4]
+      "notas": [
+        4.5,
+        5,
+        4
+      ]
     },
     {
       "id": "5",
@@ -63,9 +83,15 @@
       "material": "Látex profissional",
       "tamanho": "8, 9, 10",
       "cor": "Verde e Amarelo",
-      "nomes": ["Ricardo Gomes"],
-      "comentarios": ["Aderência perfeita!"],
-      "notas": [5]
+      "nomes": [
+        "Ricardo Gomes"
+      ],
+      "comentarios": [
+        "Aderência perfeita!"
+      ],
+      "notas": [
+        5
+      ]
     },
     {
       "id": "6",
@@ -75,9 +101,15 @@
       "material": "Alumínio",
       "tamanho": "Aro 29",
       "cor": "Cinza",
-      "nomes": ["Erick"],
-      "comentarios": ["Bom"],
-      "notas": [4]
+      "nomes": [
+        "Erick"
+      ],
+      "comentarios": [
+        "Bom"
+      ],
+      "notas": [
+        4
+      ]
     }
   ]
 }
