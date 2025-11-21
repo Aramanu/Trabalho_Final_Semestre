@@ -1,130 +1,168 @@
-import { useState } from "react";
 import Cabecalho from "../components/Cabecalho";
+import { useForm } from "react-hook-form";
+import { useEffect } from "react";
 import RodaPe from "../components/RodaPe";
-import Swal from "sweetalert2";
 
 export default function CadastroProduto() {
-  const [nome, setNome] = useState("");
-  const [valor, setValor] = useState("");
-  const [imagem, setImagem] = useState("");
-  const [material, setMaterial] = useState("");
-  const [tamanho, setTamanho] = useState("");
-  const [cor, setCor] = useState("");
+  const { register, handleSubmit, setFocus, reset } = useForm();
 
-  async function cadastrarProduto(e) {
-    e.preventDefault();
-
-    const novoArtigo = {
-      nome,
-      valor: Number(valor),
-      imagem,
-      material,
-      tamanho,
-      cor,
-      nomes: [],
-      comentarios: [],
-      notas: [],
-    };
+  async function cadastroProduto(data) {
+    const nome = data.produto;
+    const valor = data.valor;
+    const imagem = data.imagem;
+    const material  = data.material;
+    const tamanho = data.tamanho;
+    const cor = data.cor;
 
     try {
       const resposta = await fetch("http://localhost:3000/artigos", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(novoArtigo),
+        body: JSON.stringify({
+          nome: nome,
+          valor: valor,
+          imagem: imagem,
+          material: material,
+          tamanho: tamanho,
+          cor: cor,
+          nomes: [],
+          comentarios: [],
+          notas: [],
+        }),
       });
-
-      if (!resposta.ok) throw new Error("Erro ao cadastrar produto");
-
-      Swal.fire({
-        icon: "success",
-        title: "Produto cadastrado com sucesso!",
-        showConfirmButton: false,
-        timer: 2000,
-      });
-
-      // Limpar formulário
-      setNome("");
-      setValor("");
-      setImagem("");
-      setMaterial("");
-      setTamanho("");
-      setCor("");
+      if (!resposta.ok) throw new Error("Erro ao incluir o produto");
+      const novoProduto = await resposta.json();
+      alert(`Ok! Artigo cadastrado com o código: ${novoProduto.id}`);
     } catch (erro) {
-      Swal.fire({
-        icon: "error",
-        title: "Erro ao cadastrar produto",
-        text: erro.message,
-      });
+      console.log(`Erro: ${erro.message}`);
     }
+    reset();
   }
+  useEffect(() => {
+    setFocus("produto");
+  }, []);
 
   return (
     <>
       <Cabecalho />
-      <div className="pt-20 min-h-screen flex justify-center items-center">
-        <div className="w-full max-w-md bg-cinza p-8 rounded-lg">
-          <h1 className="text-3xl font-bold text-center mb-6">
-            Cadastro de Produto
-          </h1>
-          <form onSubmit={cadastrarProduto} className="flex flex-col gap-4">
+      <section className="mt-30 md:mt-35 flex flex-col items-center gap-8  ">
+        <h1 className="uppercase text-black font-bold ">cadastro de produto</h1>
+        <form
+          action=""
+          onSubmit={handleSubmit(cadastroProduto)}
+          className="flex flex-col w-200 gap-8 items-center"
+        >
+          <p className="flex  flex-row items-end gap-2 md:w-115 justify-end  ">
+            <label
+              htmlFor="produto"
+              className="font-semibold items-center justify-center hidden md:block"
+            >
+              Produto :{" "}
+            </label>
             <input
               type="text"
-              placeholder="Nome do Produto"
-              value={nome}
-              onChange={(e) => setNome(e.target.value)}
-              className="p-3 rounded bg-preto_azulado border-2 border-azul focus:outline-none focus:border-verde"
+              name="produto"
+              id="produto"
+              className="placeholder-gray-400 w-80 h-7 md:placeholder-transparent md:w-100"
+              placeholder="Produto"
               required
+              {...register("produto")}
             />
+          </p>
+          <p className="flex flex-row items-end gap-2 md:w-115 justify-end ">
+            <label
+              htmlFor="valor"
+              className="font-semibold items-center justify-center hidden md:block"
+            >
+              Valor :{" "}
+            </label>
             <input
               type="number"
-              placeholder="Valor (R$)"
-              value={valor}
-              onChange={(e) => setValor(e.target.value)}
-              step="0.01"
-              className="p-3 rounded bg-preto_azulado border-2 border-azul focus:outline-none focus:border-verde"
+              name="valor"
+              id="valor"
+              className="placeholder-gray-400 w-80 h-7 md:placeholder-transparent md:w-100"
+              placeholder="Valor"
               required
+              {...register("valor")}
             />
-            <input
-              type="text"
-              placeholder="URL da Imagem"
-              value={imagem}
-              onChange={(e) => setImagem(e.target.value)}
-              className="p-3 rounded bg-preto_azulado border-2 border-azul focus:outline-none focus:border-verde"
-              required
-            />
-            <input
-              type="text"
-              placeholder="Material"
-              value={material}
-              onChange={(e) => setMaterial(e.target.value)}
-              className="p-3 rounded bg-preto_azulado border-2 border-azul focus:outline-none focus:border-verde"
-              required
-            />
-            <input
-              type="text"
-              placeholder="Tamanho"
-              value={tamanho}
-              onChange={(e) => setTamanho(e.target.value)}
-              className="p-3 rounded bg-preto_azulado border-2 border-azul focus:outline-none focus:border-verde"
-              required
-            />
-            <input
-              type="text"
-              placeholder="Cor"
-              value={cor}
-              onChange={(e) => setCor(e.target.value)}
-              className="p-3 rounded bg-preto_azulado border-2 border-azul focus:outline-none focus:border-verde"
-              required
-            />
-            <button
-              type="submit"
-              className="bg-verde hover:bg-laranja text-preto_azulado font-bold py-3 rounded duration-200 mt-2"
+          </p>
+          <p className="flex flex-row items-end gap-2 md:w-115 justify-end ">
+            <label
+              htmlFor="imagem"
+              className="font-semibold items-center justify-center hidden md:block"
             >
-              Cadastrar Produto
-            </button>
-          </form>
-        </div>
-      </div>
+              Imagem :{" "}
+            </label>
+            <input
+              type="text"
+              name="imagem"
+              id="imagem"
+              className="placeholder-gray-400 w-80 h-7 md:placeholder-transparent md:w-100"
+              placeholder="Imagem"
+              required
+              {...register("imagem")}
+            />
+          </p>
+          <p className="flex flex-row items-end gap-2 md:w-115 justify-end ">
+            <label
+              htmlFor="tamanho"
+              className="font-semibold items-center justify-center hidden md:block"
+            >
+              Tamanho :{" "}
+            </label>
+            <input
+              type="text"
+              name="tamanho"
+              id="tamanho"
+              className="placeholder-gray-400 w-80 h-7 md:placeholder-transparent md:w-100"
+              placeholder="Tamanho"
+              required
+              {...register("tamanho")}
+            />
+          </p>
+          <p className="flex flex-row items-end gap-2 md:w-115 justify-end ">
+            <label
+              htmlFor="material"
+              className="font-semibold items-center justify-center hidden md:block"
+            >
+              Material :{" "}
+            </label>
+            <input
+              type="text"
+              name="material"
+              id="material"
+              className="placeholder-gray-400 w-80 h-7 md:placeholder-transparent md:w-100"
+              placeholder="Material"
+              required
+              {...register("material")}
+            />
+          </p>
+          <p className="flex flex-row items-end gap-2 md:w-115 justify-end ">
+            <label
+              htmlFor="cor"
+              className="font-semibold items-center justify-center hidden md:block"
+            >
+              Cor :{" "}
+            </label>
+            <input
+              type="text"
+              name="cor"
+              id="cor"
+              className="placeholder-gray-400 w-80 h-7 md:placeholder-transparent md:w-100"
+              placeholder="Cor"
+              required
+              {...register("cor")}
+            />
+          </p>
+
+          <button
+            type="submit"
+            className="bg-[#0E1418] text-white px-4 py-2 rounded mt-4 hover:bg-preto_azulado w-60"
+          >
+            CADASTRAR PRODUTO
+          </button>
+        </form>
+      </section>
       <RodaPe />
     </>
   );

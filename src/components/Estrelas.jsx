@@ -12,7 +12,7 @@ export function Estrelas({num}) {
   }
 
   return (
-    <div className="text-amber-500 flex gap-1">
+    <div className="text-laranja flex gap-1">
       {icones}
     </div>
   )
