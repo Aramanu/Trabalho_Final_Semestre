@@ -1,4 +1,4 @@
-import Cabecalho from "../components/Cabecalho";
+/* import Cabecalho from "../components/Cabecalho";
 import { useForm } from "react-hook-form";
 import { useState, useEffect } from "react";
 import RodaPe from "../components/RodaPe";
@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
 export default function CadastroUsuario() {
+<<<<<<< HEAD
   const { register, handleSubmit, setFocus, reset } = useForm();
   const [usuario, setUsuario] = useState(null);
   const MySwal = withReactContent(Swal);
@@ -42,6 +43,38 @@ export default function CadastroUsuario() {
     if (localStorage.getItem("usuario")) {
       const usuarioSalvo = JSON.parse(localStorage.getItem("usuario"));
       setUsuario(usuarioSalvo);
+=======
+    const {register, handleSubmit, setFocus, reset} = useForm();
+    const [usuario, setUsuario] = useState(null);
+    const MySwal = withReactContent(Swal);
+
+    function cadastrarUsuario(data){
+      console.log("Função cadastrarUsuario chamada com:", data);
+      const novoUsuario = {
+        nome: data.name,
+        cpf: data.cpf,
+        telefone: data.telefone,
+        endereco: data.endereco,
+        cep: data.cep,
+        login: data.login,
+        senha: data.senha
+      };
+      setUsuario(novoUsuario);
+      localStorage.setItem("usuario", JSON.stringify(novoUsuario));
+      console.log("Novo usuário criado:", novoUsuario);
+      const lista = JSON.parse(localStorage.getItem("usuarios")) || [];
+      lista.push(novoUsuario);
+      localStorage.setItem("usuarios", JSON.stringify(lista));
+
+      Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: `<span style="font-family: 'Arial'">Cadastro Realizado com Sucesso!!</span>`,
+              showConfirmButton: false,
+              timer: 2000,
+            })
+      limparFormulario()
+>>>>>>> 6ba598a (Mesclado)
     }
   }, [setFocus]);
   function limparFormulario() {
@@ -82,6 +115,7 @@ export default function CadastroUsuario() {
         text: "Nenhum usuário com esse nome existe no sistema.",
       });
     }
+<<<<<<< HEAD
 
     const confirmar = await MySwal.fire({
       icon: "warning",
@@ -108,6 +142,60 @@ export default function CadastroUsuario() {
       });
     }
   }
+=======
+    async function buscarERemoverUsuario() {
+      const { value: nomeDigitado } = await MySwal.fire({
+        title: "Remover Usuário",
+        text: "Digite o nome do usuário que deseja remover:",
+        input: "text",
+        inputPlaceholder: "Nome do usuário",
+        showCancelButton: true,
+        confirmButtonText: "Buscar",
+        cancelButtonText: "Cancelar",
+      });
+
+      if (!nomeDigitado) return;
+
+      let lista = JSON.parse(localStorage.getItem("usuarios")) || [];
+
+      const usuarioEncontrado = lista.find(
+        (u) => u.nome.toLowerCase() === nomeDigitado.toLowerCase()
+      );
+
+      if (!usuarioEncontrado) {
+        return MySwal.fire({
+          icon: "error",
+          title: "Usuário não encontrado!",
+          text: "Nenhum usuário com esse nome existe no sistema.",
+        });
+      }
+
+      const confirmar = await MySwal.fire({
+        icon: "warning",
+        title: "Excluir usuário?",
+        text: `Deseja realmente excluir ${usuarioEncontrado.nome}?`,
+        showCancelButton: true,
+        confirmButtonText: "Sim, excluir",
+        cancelButtonText: "Cancelar",
+      });
+
+      if (confirmar.isConfirmed) {
+        lista = lista.filter(
+          (u) => u.nome.toLowerCase() !== nomeDigitado.toLowerCase()
+        );
+
+        localStorage.setItem("usuarios", JSON.stringify(lista));
+
+        return MySwal.fire({
+          icon: "success",
+          title: "Usuário removido!",
+          text: "O usuário foi excluído da lista.",
+          timer: 2000,
+          showConfirmButton: false,
+        });
+      }
+    }
+>>>>>>> 6ba598a (Mesclado)
 
   return (
     <>
@@ -257,3 +345,4 @@ export default function CadastroUsuario() {
     </>
   );
 }
+ */
