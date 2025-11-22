@@ -3,12 +3,15 @@ import { useForm } from "react-hook-form";
 import { useState, useEffect } from "react";
 import RodaPe from "../components/RodaPe";
 import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 export default function CadastroUsuario() {
     const {register, handleSubmit, setFocus, reset} = useForm();
     const [usuario, setUsuario] = useState(null);
+    const MySwal = withReactContent(Swal);
 
     function cadastrarUsuario(data){
+      console.log("Função cadastrarUsuario chamada com:", data);
       const novoUsuario = {
         nome: data.name,
         cpf: data.cpf,
@@ -18,8 +21,11 @@ export default function CadastroUsuario() {
         login: data.login,
         senha: data.senha
       };
-      setUsuario(novoUsuario);
-      localStorage.setItem("usuario", JSON.stringify(novoUsuario));
+      console.log("Novo usuário criado:", novoUsuario);
+      const lista = JSON.parse(localStorage.getItem("usuarios")) || [];
+      lista.push(novoUsuario);
+      localStorage.setItem("usuarios", JSON.stringify(lista));
+
       Swal.fire({
               position: "top-end",
               icon: "success",
@@ -48,100 +54,204 @@ export default function CadastroUsuario() {
       });
       setFocus("name");
     }
+    async function buscarERemoverUsuario() {
+      const { value: nomeDigitado } = await MySwal.fire({
+        title: "Remover Usuário",
+        text: "Digite o nome do usuário que deseja remover:",
+        input: "text",
+        inputPlaceholder: "Nome do usuário",
+        showCancelButton: true,
+        confirmButtonText: "Buscar",
+        cancelButtonText: "Cancelar",
+      });
+
+      if (!nomeDigitado) return;
+
+      let lista = JSON.parse(localStorage.getItem("usuarios")) || [];
+
+      const usuarioEncontrado = lista.find(
+        (u) => u.nome.toLowerCase() === nomeDigitado.toLowerCase()
+      );
+
+      if (!usuarioEncontrado) {
+        return MySwal.fire({
+          icon: "error",
+          title: "Usuário não encontrado!",
+          text: "Nenhum usuário com esse nome existe no sistema.",
+        });
+      }
+
+      const confirmar = await MySwal.fire({
+        icon: "warning",
+        title: "Excluir usuário?",
+        text: `Deseja realmente excluir ${usuarioEncontrado.nome}?`,
+        showCancelButton: true,
+        confirmButtonText: "Sim, excluir",
+        cancelButtonText: "Cancelar",
+      });
+
+      if (confirmar.isConfirmed) {
+        lista = lista.filter(
+          (u) => u.nome.toLowerCase() !== nomeDigitado.toLowerCase()
+        );
+
+        localStorage.setItem("usuarios", JSON.stringify(lista));
+
+        return MySwal.fire({
+          icon: "success",
+          title: "Usuário removido!",
+          text: "O usuário foi excluído da lista.",
+          timer: 2000,
+          showConfirmButton: false,
+        });
+      }
+    }
+
   return (
     <>
       <Cabecalho />
-       <section className="mt-30 md:mt-35 flex flex-col items-center gap-8  ">
-              <h1 className="uppercase text-black font-bold">
-                cadastro
-              </h1>
-              <form action="" onSubmit={handleSubmit(cadastrarUsuario)} className="flex flex-col w-200 gap-8 items-center">
-                <p className="flex  flex-row items-end gap-2 md:w-115 justify-end  ">
-                  <label htmlFor="name"className="font-semibold items-center justify-center hidden md:block">Nome : </label>
-                  <input
-                    type="text"
-                    name="name"
-                    id="name"
-                    className="placeholder-gray-400 w-80 h-7 md:placeholder-transparent md:w-100"
-                    placeholder="Nome Completo"
-                    required {...register("name")}
-                  />
-                </p>
-                <p className="flex flex-row items-end gap-2 md:w-115 justify-end ">
-                  <label htmlFor="cpf"className="font-semibold items-center justify-center hidden md:block">CPF : </label>
-                  <input
-                    type="text"
-                    name="cpf"
-                    id="cpf"
-                    className="placeholder-gray-400 w-80 h-7 md:placeholder-transparent md:w-100"
-                    placeholder="CPF"
-                    required {...register("cpf")}
-                  />
-                </p>
-                <p className="flex flex-row items-end gap-2 md:w-115 justify-end ">
-                  <label htmlFor="telefone"className="font-semibold items-center justify-center hidden md:block">Telefone : </label>
-                  <input
-                    type="text"
-                    name="telefone"
-                    id="telefone"
-                    className="placeholder-gray-400 w-80 h-7 md:placeholder-transparent md:w-100"
-                    placeholder="Telefone"
-                    required {...register("telefone")}
-                  />
-                </p>
-                <p className="flex flex-row items-end gap-2 md:w-115 justify-end ">
-                  <label htmlFor="endereco"className="font-semibold items-center justify-center hidden md:block">Endereço : </label>
-                  <input
-                    type="text"
-                    name="endereco"
-                    id="endereco"
-                    className="placeholder-gray-400 w-80 h-7 md:placeholder-transparent md:w-100"
-                    placeholder="Endereço"
-                    required {...register("endereco")}
-                  />
-                </p>
-                <p className="flex flex-row items-end gap-2 md:w-115 justify-end ">
-                  <label htmlFor="cep"className="font-semibold items-center justify-center hidden md:block">Cep : </label>
-                  <input
-                    type="number"
-                    name="cep"
-                    id="cep"
-                    className="placeholder-gray-400 w-80 h-7 md:placeholder-transparent md:w-100"
-                    placeholder="Cep"
-                    required {...register("cep")}
-                  />
-                </p>
-                <p className="flex flex-row items-end gap-2 md:w-115 justify-end ">
-                  <label htmlFor="login"className="font-semibold items-center justify-center hidden md:block">Login / e-mail : </label>
-                  <input
-                    type="email"
-                    name="login"
-                    id="login"
-                    className="placeholder-gray-400 w-80 h-7 md:placeholder-transparent md:w-100"
-                    placeholder="Login / e-mail"
-                    required {...register("login")}
-                  />
-                </p>
-                <p className="flex flex-row items-end gap-2 md:w-115 justify-end ">
-                  <label htmlFor="senha"className="font-semibold items-center justify-center hidden md:block">Senha : </label>
-                  <input
-                    type="password"
-                    name="senha"
-                    id="senha"
-                    className="placeholder-gray-400 w-80 h-7 md:placeholder-transparent md:w-100"
-                    placeholder="Senha"
-                    required {...register("senha")}
-                  />
-                </p>
-                <button
-                  type="submit"
-                  className="bg-preto text-white px-4 py-2 rounded mt-4 hover:bg-preto_azulado w-60"
-                >
-                  CRIAR CADASTRO
-                </button>
-              </form>
-            </section>
-          <RodaPe />
+      <section className="mt-30 md:mt-35 flex flex-col items-center gap-8  ">
+        <h1 className="uppercase text-black font-bold">cadastro</h1>
+        <form
+          action=""
+          onSubmit={handleSubmit(cadastrarUsuario)}
+          className="flex flex-col w-200 gap-8 items-center"
+        >
+          <p className="flex  flex-row items-end gap-2 md:w-115 justify-end  ">
+            <label
+              htmlFor="name"
+              className="font-semibold items-center justify-center hidden md:block"
+            >
+              Nome :{" "}
+            </label>
+            <input
+              type="text"
+              name="name"
+              id="name"
+              className="placeholder-gray-400 w-80 h-7 md:placeholder-transparent md:w-100"
+              placeholder="Nome Completo"
+              required
+              {...register("name")}
+            />
+          </p>
+          <p className="flex flex-row items-end gap-2 md:w-115 justify-end ">
+            <label
+              htmlFor="cpf"
+              className="font-semibold items-center justify-center hidden md:block"
+            >
+              CPF :{" "}
+            </label>
+            <input
+              type="text"
+              name="cpf"
+              id="cpf"
+              className="placeholder-gray-400 w-80 h-7 md:placeholder-transparent md:w-100"
+              placeholder="CPF"
+              required
+              {...register("cpf")}
+            />
+          </p>
+          <p className="flex flex-row items-end gap-2 md:w-115 justify-end ">
+            <label
+              htmlFor="telefone"
+              className="font-semibold items-center justify-center hidden md:block"
+            >
+              Telefone :{" "}
+            </label>
+            <input
+              type="text"
+              name="telefone"
+              id="telefone"
+              className="placeholder-gray-400 w-80 h-7 md:placeholder-transparent md:w-100"
+              placeholder="Telefone"
+              required
+              {...register("telefone")}
+            />
+          </p>
+          <p className="flex flex-row items-end gap-2 md:w-115 justify-end ">
+            <label
+              htmlFor="endereco"
+              className="font-semibold items-center justify-center hidden md:block"
+            >
+              Endereço :{" "}
+            </label>
+            <input
+              type="text"
+              name="endereco"
+              id="endereco"
+              className="placeholder-gray-400 w-80 h-7 md:placeholder-transparent md:w-100"
+              placeholder="Endereço"
+              required
+              {...register("endereco")}
+            />
+          </p>
+          <p className="flex flex-row items-end gap-2 md:w-115 justify-end ">
+            <label
+              htmlFor="cep"
+              className="font-semibold items-center justify-center hidden md:block"
+            >
+              Cep :{" "}
+            </label>
+            <input
+              type="number"
+              name="cep"
+              id="cep"
+              className="placeholder-gray-400 w-80 h-7 md:placeholder-transparent md:w-100"
+              placeholder="Cep"
+              required
+              {...register("cep")}
+            />
+          </p>
+          <p className="flex flex-row items-end gap-2 md:w-115 justify-end ">
+            <label
+              htmlFor="login"
+              className="font-semibold items-center justify-center hidden md:block"
+            >
+              Login / e-mail :{" "}
+            </label>
+            <input
+              type="email"
+              name="login"
+              id="login"
+              className="placeholder-gray-400 w-80 h-7 md:placeholder-transparent md:w-100"
+              placeholder="Login / e-mail"
+              required
+              {...register("login")}
+            />
+          </p>
+          <p className="flex flex-row items-end gap-2 md:w-115 justify-end ">
+            <label
+              htmlFor="senha"
+              className="font-semibold items-center justify-center hidden md:block"
+            >
+              Senha :{" "}
+            </label>
+            <input
+              type="password"
+              name="senha"
+              id="senha"
+              className="placeholder-gray-400 w-80 h-7 md:placeholder-transparent md:w-100"
+              placeholder="Senha"
+              required
+              {...register("senha")}
+            />
+          </p>
+          <button
+            type="submit"
+            className="bg-preto text-white px-4 py-2 rounded mt-4 hover:bg-preto_azulado w-60"
+          >
+            CRIAR CADASTRO
+          </button>
+          <button
+            type="button"
+            className="bg-preto text-white px-4 py-2 rounded mt-4 hover:bg-preto_azulado w-60"
+            onClick={buscarERemoverUsuario}
+          >
+            Remover Usuário
+          </button>
+        </form>
+      </section>
+      <RodaPe />
     </>
   );
 }

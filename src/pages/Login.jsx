@@ -12,41 +12,37 @@ export default function Login() {
 
   useEffect(() => {
     setFocus("login");
-    const usuariosSalvos = JSON.parse(localStorage.getItem("usuario")) || [];
+    const usuariosSalvos = JSON.parse(localStorage.getItem("usuarios")) || [];
     setUsuarios(
       Array.isArray(usuariosSalvos) ? usuariosSalvos : [usuariosSalvos]
     );
   }, [setFocus]);
 
-  function parseUsuario(raw) {
-    try {
-      const once = JSON.parse(raw);
-      if (typeof once === "string") {
-        return JSON.parse(once);
-      }
-      return once;
-    } catch (e) {
-      return null;
-    }
-  }
-
   function onSubmit(data) {
     const loginDigitado = data.login.trim().toLowerCase();
     const senhaDigitada = data.senha.trim();
 
-    const raw = localStorage.getItem("usuario");
-    const usuarioSalvo = parseUsuario(raw);
+    const listaUsuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
 
-    if (!usuarioSalvo) {
-      alert("Nenhum usuário cadastrado!");
+    if (!Array.isArray(listaUsuarios) || listaUsuarios.length === 0) {
+      Swal.fire({
+        position: "top-end",
+        icon: "error",
+        title: `<span style="font-family: 'Arial'">Nenhum usuário cadastrado!</span>`,
+        showConfirmButton: false,
+        timer: 2000,
+      });
       reset();
       return;
     }
 
-    const emailSalvo = usuarioSalvo.login.trim().toLowerCase();
-    const senhaSalva = usuarioSalvo.senha.trim();
+      const usuarioEncontrado = listaUsuarios.find(
+      (usuario) =>
+        usuario.login.trim().toLowerCase() === loginDigitado &&
+        usuario.senha.trim() === senhaDigitada
+    );
 
-    if (emailSalvo === loginDigitado && senhaSalva === senhaDigitada) {
+    if (usuarioEncontrado) {
       Swal.fire({
         position: "top-end",
         icon: "success",
@@ -57,11 +53,11 @@ export default function Login() {
     } else {
       Swal.fire({
         position: "top-end",
-        icon: "success",
+        icon: "error",
         title: `<span style="font-family: 'Arial'">Email ou Senha Incorretos!!</span>`,
         showConfirmButton: false,
         timer: 2000,
-      })
+      });
     }
 
     reset();
