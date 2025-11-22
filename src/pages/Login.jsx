@@ -5,11 +5,66 @@ import RodaPe from "../components/RodaPe";
 import Swal from "sweetalert2";
 import { useState, useEffect } from "react";
 
-
 export default function Login() {
-  const { register, handleSubmit, reset, setFocus } = useForm();
+  const { register, handleSubmit, setFocus, reset } = useForm();
+  const [usuarios, setUsuarios] = useState([]);
+
+  useEffect(() => {
+    setFocus("login");
+    const usuariosSalvos = JSON.parse(localStorage.getItem("usuarios")) || [];
+    setUsuarios(
+      Array.isArray(usuariosSalvos) ? usuariosSalvos : [usuariosSalvos]
+    );
+  }, [setFocus]);
+
+  function onSubmit(data) {
+    const loginDigitado = data.login.trim().toLowerCase();
+    const senhaDigitada = data.senha.trim();
+
+    const listaUsuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+
+    if (!Array.isArray(listaUsuarios) || listaUsuarios.length === 0) {
+      Swal.fire({
+        position: "top-end",
+        icon: "error",
+        title: `<span style="font-family: 'Arial'">Nenhum usuário cadastrado!</span>`,
+        showConfirmButton: false,
+        timer: 2000,
+      });
+      reset();
+      return;
+    }
+
+    const usuarioEncontrado = listaUsuarios.find(
+      (usuario) =>
+        usuario.login.trim().toLowerCase() === loginDigitado &&
+        usuario.senha.trim() === senhaDigitada
+    );
+
+    if (usuarioEncontrado) {
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: `<span style="font-family: 'Arial'">Login Realizado com Sucesso!!!</span>`,
+        showConfirmButton: false,
+        timer: 2000,
+      });
+    } else {
+      Swal.fire({
+        position: "top-end",
+        icon: "error",
+        title: `<span style="font-family: 'Arial'">Email ou Senha Incorretos!!</span>`,
+        showConfirmButton: false,
+        timer: 2000,
+      });
+    }
+
+    reset();
+    setFocus("login");
+  }
 
   return (
+
     <>
       <Cabecalho />
 
@@ -20,23 +75,28 @@ export default function Login() {
         <h1 className="uppercase text-black font-bold md:hidden">
           email e senha
         </h1>
-        <form action="" className="pt-10 flex flex-col gap-8 w-full max-w-md">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="pt-10 flex flex-col gap-8 w-full max-w-md"
+        >
           <p>
             <input
               type="email"
-              name=""
-              id=""
+              name="login"
+              id="login"
               className="placeholder-azul_aux w-full detalhes"
               placeholder="exemplo@email.com"
+              {...register("login")}
             />
           </p>
           <p>
             <input
               type="password"
-              name=""
-              id=""
+              name="senha"
+              id="senha"
               className="placeholder-azul_aux w-full detalhes"
               placeholder="adicione sua senha"
+              {...register("senha")}
             />
           </p>
           <div className="flex flex-col justify-end">
@@ -52,12 +112,13 @@ export default function Login() {
             Entrar
           </button>
         </form>
-        <Link to="/cadastro-usuario"> 
-        <h5 className="uppercase detalhes text-center hidden md:block hover:cursor-pointer hover:text-azul">
-          não tem uma conta? cadastre-se
-        </h5>
-        <h5 className="uppercase detalhes text-center hover:cursor-pointer md:hidden hover:text-azul">cadastre-se
-        </h5>
+        <Link to="/cadastro-usuario">
+          <h5 className="uppercase detalhes text-center hidden md:block hover:cursor-pointer hover:text-azul">
+            não tem uma conta? cadastre-se
+          </h5>
+          <h5 className="uppercase detalhes text-center hover:cursor-pointer md:hidden hover:text-azul">
+            cadastre-se
+          </h5>
         </Link>
       </section>
       <RodaPe />
