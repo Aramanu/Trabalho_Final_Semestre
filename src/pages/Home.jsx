@@ -8,7 +8,7 @@ import { FaWhatsapp } from "react-icons/fa";
 import CardHome from "../components/cards/CardHome";
 import SequenciaDeCardsCatalogo from "../components/cards/SequenciaDeCardsCatalogo";
 
-export default function Home() {
+export default function CarrinhoVazio() {
   return (
     <>
       <Cabecalho />
