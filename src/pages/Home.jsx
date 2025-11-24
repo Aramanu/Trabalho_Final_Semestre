@@ -60,7 +60,7 @@ export default function CarrinhoVazio() {
           descricao="Conheça nosso catálogo de artigos de futebol"
         />
         <CardHome
-          imagem="public/corredora.png"
+          imagem="corredora.png"
           titulo="Itens para corrida"
           descricao="Comece a correr com o que nós temos a oferecer de melhor."
         />
