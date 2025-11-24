@@ -14,8 +14,6 @@ export default function Carrinho() {
   const [descontoCupom] = useState(0.10);
   const [cep, setCep] = useState("");
   
-  console.log("Componente Carrinho montado. Itens:", itensCarrinho);
-  
   const calcularSubtotal = () => calcularTotal();
   const calcularDesconto = () => cupomAplicado ? calcularSubtotal() * descontoCupom : 0;
   const calcularTotalComDesconto = () => calcularSubtotal() - calcularDesconto();
