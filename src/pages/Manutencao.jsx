@@ -10,7 +10,7 @@ export default function Manutencao() {
         <div className="mx-auto grow flex flex-col">
           <div className="grow flex items-center justify-center">
             <div className="text-center">
-              <h2 className="text-3xl font-semibold text-gray-600 mb-4">
+              <h2 className="pt-24 text-3xl font-semibold text-gray-600 mb-4">
                 Site em Manutenção
               </h2>
               <img src="/edecio.png" alt="Manutenção" />
