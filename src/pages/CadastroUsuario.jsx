@@ -1,4 +1,4 @@
-/* import Cabecalho from "../components/Cabecalho";
+import Cabecalho from "../components/Cabecalho";
 import { useForm } from "react-hook-form";
 import { useState, useEffect } from "react";
 import RodaPe from "../components/RodaPe";
@@ -6,108 +6,108 @@ import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
 export default function CadastroUsuario() {
-    const {register, handleSubmit, setFocus, reset} = useForm();
-    const [usuario, setUsuario] = useState(null);
-    const MySwal = withReactContent(Swal);
+  const { register, handleSubmit, setFocus, reset } = useForm();
+  const [usuario, setUsuario] = useState(null);
+  const MySwal = withReactContent(Swal);
 
-    function cadastrarUsuario(data){
-      console.log("Função cadastrarUsuario chamada com:", data);
-      const novoUsuario = {
-        nome: data.name,
-        cpf: data.cpf,
-        telefone: data.telefone,
-        endereco: data.endereco,
-        cep: data.cep,
-        login: data.login,
-        senha: data.senha
-      };
-      setUsuario(novoUsuario);
-      localStorage.setItem("usuario", JSON.stringify(novoUsuario));
-      console.log("Novo usuário criado:", novoUsuario);
-      const lista = JSON.parse(localStorage.getItem("usuarios")) || [];
-      lista.push(novoUsuario);
-      localStorage.setItem("usuarios", JSON.stringify(lista));
+  function cadastrarUsuario(data) {
+    console.log("Função cadastrarUsuario chamada com:", data);
+    const novoUsuario = {
+      nome: data.name,
+      cpf: data.cpf,
+      telefone: data.telefone,
+      endereco: data.endereco,
+      cep: data.cep,
+      login: data.login,
+      senha: data.senha,
+    };
+    setUsuario(novoUsuario);
+    localStorage.setItem("usuario", JSON.stringify(novoUsuario));
+    console.log("Novo usuário criado:", novoUsuario);
+    const lista = JSON.parse(localStorage.getItem("usuarios")) || [];
+    lista.push(novoUsuario);
+    localStorage.setItem("usuarios", JSON.stringify(lista));
 
-      Swal.fire({
-              position: "top-end",
-              icon: "success",
-              title: `<span style="font-family: 'Arial'">Cadastro Realizado com Sucesso!!</span>`,
-              showConfirmButton: false,
-              timer: 2000,
-            })
-      limparFormulario()
+    Swal.fire({
+      position: "top-end",
+      icon: "success",
+      title: `<span style="font-family: 'Arial'">Cadastro Realizado com Sucesso!!</span>`,
+      showConfirmButton: false,
+      timer: 2000,
+    });
+    limparFormulario();
+  }
+  useEffect(() => {
+    setFocus("name");
+    if (localStorage.getItem("usuario")) {
+      const usuarioSalvo = JSON.parse(localStorage.getItem("usuario"));
+      setUsuario(usuarioSalvo);
     }
-    useEffect(() => {
-      setFocus("name")
-      if(localStorage.getItem("usuario")){
-        const usuarioSalvo = JSON.parse(localStorage.getItem("usuario"));
-        setUsuario(usuarioSalvo);
-      }
-    }, [setFocus]);
-    function limparFormulario(){
-      reset({
-        name: "",
-        cpf: "",
-        telefone: "",
-        endereco: "",
-        cep: "",
-        login: "",
-        senha: ""
+  }, [setFocus]);
+  function limparFormulario() {
+    reset({
+      name: "",
+      cpf: "",
+      telefone: "",
+      endereco: "",
+      cep: "",
+      login: "",
+      senha: "",
+    });
+    setFocus("name");
+  }
+  async function buscarERemoverUsuario() {
+    const { value: nomeDigitado } = await MySwal.fire({
+      title: "Remover Usuário",
+      text: "Digite o nome do usuário que deseja remover:",
+      input: "text",
+      inputPlaceholder: "Nome do usuário",
+      showCancelButton: true,
+      confirmButtonText: "Buscar",
+      cancelButtonText: "Cancelar",
+    });
+
+    if (!nomeDigitado) return;
+
+    let lista = JSON.parse(localStorage.getItem("usuarios")) || [];
+
+    const usuarioEncontrado = lista.find(
+      (u) => u.nome.toLowerCase() === nomeDigitado.toLowerCase()
+    );
+
+    if (!usuarioEncontrado) {
+      return MySwal.fire({
+        icon: "error",
+        title: "Usuário não encontrado!",
+        text: "Nenhum usuário com esse nome existe no sistema.",
       });
-      setFocus("name");
     }
-    async function buscarERemoverUsuario() {
-      const { value: nomeDigitado } = await MySwal.fire({
-        title: "Remover Usuário",
-        text: "Digite o nome do usuário que deseja remover:",
-        input: "text",
-        inputPlaceholder: "Nome do usuário",
-        showCancelButton: true,
-        confirmButtonText: "Buscar",
-        cancelButtonText: "Cancelar",
-      });
 
-      if (!nomeDigitado) return;
+    const confirmar = await MySwal.fire({
+      icon: "warning",
+      title: "Excluir usuário?",
+      text: `Deseja realmente excluir ${usuarioEncontrado.nome}?`,
+      showCancelButton: true,
+      confirmButtonText: "Sim, excluir",
+      cancelButtonText: "Cancelar",
+    });
 
-      let lista = JSON.parse(localStorage.getItem("usuarios")) || [];
-
-      const usuarioEncontrado = lista.find(
-        (u) => u.nome.toLowerCase() === nomeDigitado.toLowerCase()
+    if (confirmar.isConfirmed) {
+      lista = lista.filter(
+        (u) => u.nome.toLowerCase() !== nomeDigitado.toLowerCase()
       );
 
-      if (!usuarioEncontrado) {
-        return MySwal.fire({
-          icon: "error",
-          title: "Usuário não encontrado!",
-          text: "Nenhum usuário com esse nome existe no sistema.",
-        });
-      }
+      localStorage.setItem("usuarios", JSON.stringify(lista));
 
-      const confirmar = await MySwal.fire({
-        icon: "warning",
-        title: "Excluir usuário?",
-        text: `Deseja realmente excluir ${usuarioEncontrado.nome}?`,
-        showCancelButton: true,
-        confirmButtonText: "Sim, excluir",
-        cancelButtonText: "Cancelar",
+      return MySwal.fire({
+        icon: "success",
+        title: "Usuário removido!",
+        text: "O usuário foi excluído da lista.",
+        timer: 2000,
+        showConfirmButton: false,
       });
-
-      if (confirmar.isConfirmed) {
-        lista = lista.filter(
-          (u) => u.nome.toLowerCase() !== nomeDigitado.toLowerCase()
-        );
-
-        localStorage.setItem("usuarios", JSON.stringify(lista));
-
-        return MySwal.fire({
-          icon: "success",
-          title: "Usuário removido!",
-          text: "O usuário foi excluído da lista.",
-          timer: 2000,
-          showConfirmButton: false,
-        });
-      }
     }
+  }
 
   return (
     <>
@@ -257,4 +257,3 @@ export default function CadastroUsuario() {
     </>
   );
 }
- */
