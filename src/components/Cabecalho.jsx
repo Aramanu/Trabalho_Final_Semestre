@@ -1,10 +1,12 @@
 import { useState, useEffect, useRef } from "react";
 import { FaShoppingCart } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { useCarrinho } from "../context/CarrinhoContext";
 
 export default function Cabecalho() {
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef(null); // referência ao nav/menu
+  const { quantidadeTotal } = useCarrinho();
 
   // Fecha o menu ao clicar fora
   useEffect(() => {
@@ -68,7 +70,14 @@ export default function Cabecalho() {
           >
             Login
           </Link>
-          <FaShoppingCart className="p-2 w-10 h-10 hover:bg-cinza rounded-lg text-verde cursor-pointer  hover:text-branco duration-200 " />
+          <Link to="/carrinho" className="relative">
+            <FaShoppingCart className="p-2 w-10 h-10 hover:bg-cinza rounded-lg text-verde cursor-pointer  hover:text-branco duration-200 " />
+            {quantidadeTotal() > 0 && (
+              <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-6 w-6 flex items-center justify-center font-bold">
+                {quantidadeTotal()}
+              </span>
+            )}
+          </Link>
           <button
             onClick={() => setMenuOpen(!menuOpen)}
             type="button"

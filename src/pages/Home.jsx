@@ -8,7 +8,7 @@ import { FaWhatsapp } from "react-icons/fa";
 import CardHome from "../components/cards/CardHome";
 import SequenciaDeCardsCatalogo from "../components/cards/SequenciaDeCardsCatalogo";
 
-export default function Home() {
+export default function CarrinhoVazio() {
   return (
     <>
       <Cabecalho />
@@ -60,7 +60,7 @@ export default function Home() {
           descricao="Conheça nosso catálogo de artigos de futebol"
         />
         <CardHome
-          imagem="public/corredora.png"
+          imagem="corredora.png"
           titulo="Itens para corrida"
           descricao="Comece a correr com o que nós temos a oferecer de melhor."
         />

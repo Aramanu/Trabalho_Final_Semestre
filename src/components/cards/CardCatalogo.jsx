@@ -3,11 +3,13 @@ import withReactContent from "sweetalert2-react-content";
 import { useForm } from "react-hook-form";
 import { Estrelas } from "../Estrelas";
 import { Link } from "react-router-dom";
+import { useCarrinho } from "../../context/CarrinhoContext";
 
 const MySwal = withReactContent(Swal);
 
 function CardCatalogo({ artigo, setArtigos }) {
   const { register, handleSubmit, reset } = useForm();
+  const { adicionarAoCarrinho } = useCarrinho();
 
   async function enviarComentario(data) {
     const { nomes, comentarios, notas } = data;
@@ -142,12 +144,20 @@ function CardCatalogo({ artigo, setArtigos }) {
           </Link>
         </div>
       )}
-      <button
-        className="bg-verde hover:bg-laranja text-preto_azulado font-bold py-2 px-4 rounded duration-200 w-full"
-        onClick={avaliarArtigo}
-      >
-        Avaliar Produto
-      </button>
+      <div className="flex flex-col gap-2 w-full">
+        <button
+          className="bg-azul hover:bg-blue-700 text-white font-bold py-2 px-4 rounded duration-200 w-full"
+          onClick={() => adicionarAoCarrinho(artigo)}
+        >
+          Adicionar ao Carrinho
+        </button>
+        <button
+          className="bg-verde hover:bg-laranja text-preto_azulado font-bold py-2 px-4 rounded duration-200 w-full"
+          onClick={avaliarArtigo}
+        >
+          Avaliar Produto
+        </button>
+      </div>
     </div>
   );
 }
