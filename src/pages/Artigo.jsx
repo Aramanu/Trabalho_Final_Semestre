@@ -6,6 +6,7 @@ import { Estrelas } from "../components/Estrelas";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import { useForm } from "react-hook-form";
+import { useCarrinho } from "../context/CarrinhoContext";
 
 const MySwal = withReactContent(Swal);
 
@@ -13,6 +14,7 @@ function Artigo() {
   const { artigoId } = useParams();
   const [artigo, setArtigo] = useState({});
   const { register, handleSubmit, reset } = useForm();
+  const { adicionarAoCarrinho } = useCarrinho();
 
   useEffect(() => {
     async function getArtigo() {
@@ -174,6 +176,14 @@ function Artigo() {
             <p className="text-lg mb-4">
               <span className="font-bold">Cor:</span> {artigo.cor}
             </p>
+            
+            <button
+              onClick={() => adicionarAoCarrinho(artigo)}
+              className="w-full bg-verde hover:bg-laranja text-preto_azulado font-bold py-3 px-6 rounded duration-200 mb-4 cursor-pointer"
+            >
+              Adicionar ao Carrinho
+            </button>
+            
             <div className="mt-4 pt-4 border-t border-preto-azulado">
               {(artigo.notas?.length ?? 0) === 0 ? (
                 <p className="text-sm text-azul_aux">Sem avaliações ainda</p>
