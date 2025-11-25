@@ -133,13 +133,16 @@ function Artigo() {
   if (artigo.comentarios) {
     for (let i = 0; i < artigo.comentarios.length; i++) {
       listaComentarios.push(
-        <tr key={artigo.comentarios[i]} className="">
-          <td className="px-4">{artigo.nomes[i]}</td>
-          <td className="px-4">{artigo.comentarios[i]}</td>
-          <td className="px-4">
+        <div
+          key={artigo.comentarios[i]}
+          className="border-2 border-preto_azulado p-6 w-full flex flex-col gap-3"
+        >
+          <p className="font-bold text-lg">{artigo.nomes[i]}</p>
+          <div>
             <Estrelas num={artigo.notas[i]} />
-          </td>
-        </tr>
+          </div>
+          <p className="text-gray-700">{artigo.comentarios[i]}</p>
+        </div>
       );
     }
   }
@@ -148,9 +151,7 @@ function Artigo() {
     <>
       <Cabecalho />
       <div className="pt-20">
-        <h1 className="md:h2 h4 text-center font-bold my-10">
-          {artigo.nome}
-        </h1>
+        <h1 className="md:h2 h4 text-center font-bold my-10">{artigo.nome}</h1>
 
         <div className="flex flex-col md:flex-row justify-center gap-6 max-w-7xl mx-auto px-4">
           <img
@@ -176,14 +177,14 @@ function Artigo() {
             <p className="text-lg mb-4">
               <span className="font-bold">Cor:</span> {artigo.cor}
             </p>
-            
+
             <button
               onClick={() => adicionarAoCarrinho(artigo)}
               className="w-full bg-verde hover:bg-laranja text-preto_azulado font-bold py-3 px-6 rounded duration-200 mb-4 cursor-pointer"
             >
               Adicionar ao Carrinho
             </button>
-            
+
             <div className="mt-4 pt-4 border-t border-preto-azulado">
               {(artigo.notas?.length ?? 0) === 0 ? (
                 <p className="text-sm text-azul_aux">Sem avaliações ainda</p>
@@ -202,36 +203,27 @@ function Artigo() {
         </div>
 
         <div className="flex flex-col items-center mt-16 px-4 mb-10">
-          <h2 className="text-2xl font-bold mb-6">
-            Comentários e Avaliações dos Usuários
-          </h2>
+          <div className="flex justify-between items-center w-full max-w-7xl mb-6">
+            <h2 className="text-2xl font-bold mb-6">
+              Comentários e Avaliações dos Usuários
+            </h2>
 
-          <button
-            className="bg-verde hover:bg-laranja text-preto_azulado font-bold py-3 px-8 rounded duration-200 mb-8"
-            onClick={avaliarArtigo}
-          >
-            Avaliar Produto
-          </button>
+            <button
+              className="bg-verde hover:bg-laranja text-preto_azulado font-bold py-3 px-8 rounded duration-200 mb-8"
+              onClick={avaliarArtigo}
+            >
+              Avaliar Produto
+            </button>
+          </div>
 
           {(artigo.comentarios?.length ?? 0) === 0 ? (
             <p className="text-gray-500 text-lg">
               Nenhum comentário ainda. Seja o primeiro a avaliar!
             </p>
           ) : (
-            <table className="table-auto border-separate border-spacing-y-3 border-spacing-x-4 w-full max-w-4xl">
-              <thead>
-                <tr className="border-preto_azulado">
-                  <th className="px-6 py-3 text-left rounded-l-lg">
-                    Nome do Usuário
-                  </th>
-                  <th className="px-6 py-3 text-left">
-                    Comentário sobre o artigo
-                  </th>
-                  <th className="px-6 py-3 text-left rounded-r-lg">Nota</th>
-                </tr>
-              </thead>
-              <tbody>{listaComentarios}</tbody>
-            </table>
+            <div className="w-full max-w-7xl flex flex-col gap-4">
+              {listaComentarios}
+            </div>
           )}
         </div>
       </div>
