@@ -59,8 +59,8 @@ export default function Pesquisa() {
     <div className="flex flex-col min-h-screen">
       <Cabecalho />
       <main className="flex-1">
-        <div className="mt-30 md:mt-35 flex flex-col items-center gap-8  ">
-          <h1 className="text-4xl font-bold flex justify-center my-10e">
+        <div className="mt-30 md:mt-35 flex flex-col items-center gap-8">
+          <h1 className="text-4xl font-bold flex justify-center">
             Pesquisa Produtos
           </h1>
           <form className="flex flex-col gap-4 items-center" onSubmit={handleSubmit(pesquisaArtigos)}>

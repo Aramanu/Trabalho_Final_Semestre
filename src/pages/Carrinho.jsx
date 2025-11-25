@@ -75,63 +75,105 @@ export default function Carrinho() {
             </section>
           </div>
         ) : (
-          <section className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <section className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-8">
             <article className="lg:col-span-2 bg-white rounded-lg shadow-sm">
-              <header className="p-6 border-b">
+              <header className="p-4 md:p-6 border-b">
                 <h3 className="text-lg font-semibold">Itens no Carrinho ({itensCarrinho.length})</h3>
               </header>
               
               <ul className="divide-y">
                 {itensCarrinho.map(item => (
-                  <li key={item.id} className="p-6 flex items-center gap-4">
-                    <img 
-                      src={item.imagem} 
-                      alt={item.nome}
-                      className="w-20 h-20 object-cover rounded-lg"
-                    />
-                    
-                    <div className="flex-1">
-                      <h4 className="font-semibold text-gray-900">{item.nome}</h4>
-                      <p className="text-verde font-bold text-lg">R$ {item.preco.toFixed(2)}</p>
-                    </div>
-                        
-                        <div className="flex items-center gap-3">
-                          <button 
-                            onClick={() => atualizarQuantidade(item.id, item.quantidade - 1)}
-                            className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center hover:bg-gray-300"
-                          >
-                            <FaMinus className="text-xs" />
-                          </button>
-                          
-                          <span className="w-12 text-center font-semibold">{item.quantidade}</span>
-                          
-                          <button 
-                            onClick={() => atualizarQuantidade(item.id, item.quantidade + 1)}
-                            className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center hover:bg-gray-300"
-                          >
-                            <FaPlus className="text-xs" />
-                          </button>
+                  <li key={item.id} className="p-4 md:p-6">
+                    {/* Layout mobile - empilhado */}
+                    <div className="block sm:hidden">
+                      <div className="flex items-start gap-3 mb-3">
+                        <img 
+                          src={item.imagem} 
+                          alt={item.nome}
+                          className="w-16 h-16 object-cover rounded-lg shrink-0"
+                        />
+                        <div className="flex-1 min-w-0">
+                          <h4 className="font-semibold text-gray-900 text-sm leading-tight">{item.nome}</h4>
+                          <p className="text-verde font-bold text-lg">R$ {item.preco.toFixed(2)}</p>
                         </div>
-                        
                         <button 
                           onClick={() => removerDoCarrinho(item.id)}
-                          className="text-red-500 hover:text-red-700 p-2"
+                          className="text-red-500 hover:text-red-700 p-2 shrink-0"
                         >
-                          <FaTrash />
-                    </button>
+                          <FaTrash className="text-sm" />
+                        </button>
+                      </div>
+                      
+                      <div className="flex items-center justify-center gap-3">
+                        <button 
+                          onClick={() => atualizarQuantidade(item.id, item.quantidade - 1)}
+                          className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center hover:bg-gray-300"
+                        >
+                          <FaMinus className="text-sm" />
+                        </button>
+                        
+                        <span className="w-16 text-center font-semibold text-lg">{item.quantidade}</span>
+                        
+                        <button 
+                          onClick={() => atualizarQuantidade(item.id, item.quantidade + 1)}
+                          className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center hover:bg-gray-300"
+                        >
+                          <FaPlus className="text-sm" />
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Layout desktop - horizontal */}
+                    <div className="hidden sm:flex items-center gap-4">
+                      <img 
+                        src={item.imagem} 
+                        alt={item.nome}
+                        className="w-20 h-20 object-cover rounded-lg"
+                      />
+                      
+                      <div className="flex-1">
+                        <h4 className="font-semibold text-gray-900">{item.nome}</h4>
+                        <p className="text-verde font-bold text-lg">R$ {item.preco.toFixed(2)}</p>
+                      </div>
+                          
+                      <div className="flex items-center gap-3">
+                        <button 
+                          onClick={() => atualizarQuantidade(item.id, item.quantidade - 1)}
+                          className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center hover:bg-gray-300"
+                        >
+                          <FaMinus className="text-xs" />
+                        </button>
+                        
+                        <span className="w-12 text-center font-semibold">{item.quantidade}</span>
+                        
+                        <button 
+                          onClick={() => atualizarQuantidade(item.id, item.quantidade + 1)}
+                          className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center hover:bg-gray-300"
+                        >
+                          <FaPlus className="text-xs" />
+                        </button>
+                      </div>
+                      
+                      <button 
+                        onClick={() => removerDoCarrinho(item.id)}
+                        className="text-red-500 hover:text-red-700 p-2"
+                      >
+                        <FaTrash />
+                      </button>
+                    </div>
                   </li>
                 ))}
               </ul>
             </article>
             
-            <aside className="lg:col-span-1 bg-white rounded-lg shadow-sm p-6 sticky top-24">
+            <aside className="lg:col-span-1 bg-white rounded-lg shadow-sm p-4 md:p-6 lg:sticky lg:top-24">
               <h3 className="text-lg font-semibold mb-6">Resumo</h3>
               
               <form className="mb-6" onSubmit={(e) => e.preventDefault()}>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Cupom de Desconto:
                 </label>
-                <div className="flex gap-2">
+                <div className="flex flex-col sm:flex-row gap-2">
                       <input
                         type="text"
                         value={cupom}
@@ -152,7 +194,7 @@ export default function Carrinho() {
                         type="button"
                         onClick={aplicarCupom}
                         disabled={cupomAplicado || !cupom.trim()}
-                        className="cursor-pointer bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="cursor-pointer bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
                       >
                         Aplicar
                       </button>
@@ -174,7 +216,7 @@ export default function Carrinho() {
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Calcular Frete:
                   </label>
-                  <div className="flex gap-2">
+                  <div className="flex flex-col sm:flex-row gap-2">
                       <input
                         type="text"
                         value={cep}
@@ -186,7 +228,7 @@ export default function Carrinho() {
                       <button
                         type="button"
                         onClick={calcularFrete}
-                        className="bg-azul text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center gap-2 cursor-pointer"
+                        className="bg-azul text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center gap-2 cursor-pointer whitespace-nowrap justify-center"
                       >
                         <FaTruck className="text-sm" />
                         Calcular
